@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from fpdf import FPDF
 from io import BytesIO
 
 
@@ -46,33 +45,6 @@ def plot_kpis_by_person(dataframe, name, kpi_columns):
     return fig
 
 
-def fig_to_image(fig):
-    buf = BytesIO()
-    fig.savefig(buf, format="png")
-    buf.seek(0)
-    return buf
-
-
-def generate_pdf(dataframe, name):
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=12)
-    pdf.cell(200, 10, txt=f"Reporte de KPIs para {name}", ln=True, align='C')
-
-    pdf.set_font("Arial", size=10)
-    pdf.cell(200, 10, txt="KPIs por Mes", ln=True)
-    fig = plot_kpis_by_person(dataframe, name, kpi_columns_responsibilities)
-    pdf.image(BytesIO(fig_to_image(fig)), x=10, y=40, w=180)
-
-    fig = plot_kpis_by_person(dataframe, name, kpi_columns_values)
-    pdf.image(BytesIO(fig_to_image(fig)), x=10, y=140, w=180)
-
-    pdf_output = BytesIO()
-    pdf.output(pdf_output)
-    pdf_output.seek(0)
-    return pdf_output
-
-
 st.title('Visualización de KPIs')
 
 
@@ -114,15 +86,6 @@ if all(kpi_names.values()):
             fig, ax = plt.subplots()
             plot_kpis_by_person(df, selected_name, kpi_columns_values, ax)
             st.pyplot(fig)
-
-            if st.button(f'Descargar Reporte PDF para {selected_name}'):
-                pdf = generate_pdf(df, selected_name)
-                st.download_button(
-                    label="Descargar Reporte PDF",
-                    data=pdf,
-                    file_name=f'reporte_{selected_name}.pdf',
-                    mime='application/octet-stream'
-                )
 
         st.sidebar.subheader('Filtrar por Mes')
         selected_month = st.sidebar.selectbox('Selecciona un mes', df['Mes'].unique())
