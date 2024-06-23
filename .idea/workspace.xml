@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="387c4643-9bea-4bef-82e9-6b6874037bec" name="Changes" comment="FIx bugs">
+    <list default="true" id="387c4643-9bea-4bef-82e9-6b6874037bec" name="Changes" comment="Fix bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
@@ -86,7 +86,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719010226601</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fix bugs">
+      <option name="closed" value="true" />
+      <created>1719101827272</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1719101827272</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -94,6 +102,7 @@
     <MESSAGE value="Delete errors" />
     <MESSAGE value="Add Dynamic KPIs" />
     <MESSAGE value="FIx bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="FIx bugs" />
+    <MESSAGE value="Fix bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bugs" />
   </component>
 </project>
