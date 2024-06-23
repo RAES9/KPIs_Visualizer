@@ -1,7 +1,5 @@
 import streamlit as st
 import pandas as pd
-from fpdf import FPDF
-from io import BytesIO
 import base64
 
 # Función para cargar y mostrar el archivo CSV
@@ -45,31 +43,6 @@ def display_averages(dataframe):
 
     return average_kpis_responsibilities, average_kpis_values, overall_average_kpis_responsibilities, overall_average_kpis_values
 
-# Función para convertir dataframe a imagen para PDF
-def df_to_image(df):
-    buf = BytesIO()
-    fig = df.plot().get_figure()
-    fig.savefig(buf, format="png")
-    buf.seek(0)
-    return buf
-
-# Función para generar el reporte PDF
-def generate_pdf(dataframe, name):
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=12)
-    pdf.cell(200, 10, txt=f"Reporte de KPIs para {name}", ln=True, align='C')
-
-    pdf.set_font("Arial", size=10)
-    pdf.cell(200, 10, txt="KPIs por Mes", ln=True)
-
-    buf = df_to_image(dataframe)
-    pdf.image(buf, x=10, y=40, w=180)
-
-    pdf_output = BytesIO()
-    pdf.output(pdf_output)
-    pdf_output.seek(0)
-    return pdf_output
 
 # Main
 st.title('Visualización de KPIs')
@@ -111,16 +84,6 @@ if all(kpi_names.values()):
             st.subheader(f'KPIs de {selected_name} por Mes')
             person_data_responsibilities = plot_kpis_by_person_st(df, selected_name, kpi_columns_responsibilities)
             person_data_values = plot_kpis_by_person_st(df, selected_name, kpi_columns_values)
-
-            # Botón para generar y descargar el reporte PDF
-            if st.button(f'Descargar Reporte PDF para {selected_name}'):
-                pdf = generate_pdf(df, selected_name)
-                st.download_button(
-                    label="Descargar Reporte PDF",
-                    data=pdf,
-                    file_name=f'reporte_{selected_name}.pdf',
-                    mime='application/octet-stream'
-                )
 
         st.sidebar.subheader('Filtrar por Mes')
         selected_month = st.sidebar.selectbox('Selecciona un mes', df['Mes'].unique())
