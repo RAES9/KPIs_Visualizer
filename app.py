@@ -1,8 +1,7 @@
 import streamlit as st
 import pandas as pd
-import base64
 
-# Función para cargar y mostrar el archivo CSV
+
 def load_csv():
     uploaded_file = st.file_uploader("Cargar archivo CSV", type=["csv"])
     if uploaded_file is not None:
@@ -10,21 +9,22 @@ def load_csv():
         return df
     return None
 
-# Función para mostrar gráficos lineales por persona en Streamlit
+
 def plot_kpis_by_person_st(dataframe, name, kpi_columns):
     person_data = dataframe[dataframe['Nombre'] == name]
-    person_data = person_data.set_index('Mes')[kpi_columns]
+    person_data['Mes'] = pd.Categorical(person_data['Mes'], categories=["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"], ordered=True)
+    person_data = person_data.sort_values('Mes').set_index('Mes')[kpi_columns]
     st.line_chart(person_data)
     return person_data
 
-# Función para mostrar gráficos de barras por mes en Streamlit
+
 def plot_kpis_by_month_st(dataframe, month, kpi_columns):
     month_data = dataframe[dataframe['Mes'] == month]
     month_data = month_data.set_index('Nombre')[kpi_columns]
     st.bar_chart(month_data)
     return month_data
 
-# Función para calcular y mostrar los promedios
+
 def display_averages(dataframe):
     average_kpis_responsibilities = dataframe.groupby('Nombre')[kpi_columns_responsibilities].mean()
     average_kpis_values = dataframe.groupby('Nombre')[kpi_columns_values].mean()
@@ -44,28 +44,24 @@ def display_averages(dataframe):
     return average_kpis_responsibilities, average_kpis_values, overall_average_kpis_responsibilities, overall_average_kpis_values
 
 
-# Main
 st.title('Visualización de KPIs')
 
-# Ingresar cantidad de KPIs
 st.sidebar.subheader('Ingresar Cantidad de KPIs')
-num_kpis_responsibilities = st.sidebar.number_input('Cantidad de KPIs de Responsabilidades', min_value=1, step=1, value=4)
-num_kpis_values = st.sidebar.number_input('Cantidad de KPIs de Valores de la Empresa', min_value=1, step=1, value=5)
+num_kpis_responsibilities = st.sidebar.number_input('Cantidad de KPIs (Habilidates Tecnicas)', min_value=1, step=1, value=4)
+num_kpis_values = st.sidebar.number_input('Cantidad de KPIs (Habilidates Blandas)', min_value=1, step=1, value=5)
 
-# Ingresar nombres de los KPIs
 st.sidebar.subheader('Ingresar Nombres de KPIs')
 
 kpi_names = {}
 for i in range(1, num_kpis_responsibilities + 1):
-    kpi_names[f'KPI_{i}'] = st.sidebar.text_input(f'Nombre para KPI_{i} (Responsabilidades)', value=f'KPI_{i}')
+    kpi_names[f'KPI_{i}'] = st.sidebar.text_input(f'Nombre para KPI_{i} (Habilidad Tecnica)', value=f'KPI_{i}')
 
 for i in range(1, num_kpis_values + 1):
-    kpi_names[f'KPI_SS_{i}'] = st.sidebar.text_input(f'Nombre para KPI_SS_{i} (Valores de la Empresa)', value=f'KPI_SS_{i}')
+    kpi_names[f'KPI_SS_{i}'] = st.sidebar.text_input(f'Nombre para KPI_SS_{i} (Habilidad Blanda)', value=f'KPI_SS_{i}')
 
-# Asegurarse que todos los nombres han sido ingresados
 if all(kpi_names.values()):
     st.sidebar.success('Todos los nombres de los KPIs han sido ingresados.')
-    # Cargar el archivo CSV
+
     df = load_csv()
 
     if df is not None:
