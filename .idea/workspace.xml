@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="387c4643-9bea-4bef-82e9-6b6874037bec" name="Changes" comment="Fix bugs">
+    <list default="true" id="387c4643-9bea-4bef-82e9-6b6874037bec" name="Changes" comment="Update sorted months">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
@@ -118,7 +118,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719102604380</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Update sorted months">
+      <option name="closed" value="true" />
+      <created>1719104761408</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1719104761408</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -127,6 +135,7 @@
     <MESSAGE value="Add Dynamic KPIs" />
     <MESSAGE value="FIx bugs" />
     <MESSAGE value="Fix bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix bugs" />
+    <MESSAGE value="Update sorted months" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update sorted months" />
   </component>
 </project>
